@@ -206,13 +206,13 @@ def getDmcE(path):
 
 \begin{frame}[containsverbatim]
 \begin{itemize}
- \item Step one: Concatinate all the his tex-files into one file:  
+ \item Step one: Concatinate all his tex-files into one file:  
  \vspace{0.2cm}
 \scriptsize
 \verb+~$ find . -name *.tex -exec cat {} \; > ~/.../christoffer_raw.tex+
 \normalsize
 
- \item Use \verb+count_words.py+ to count the accurances of important strings/words such as ...
+ \item Use \verb+count_words.py+ to count the occurrences of important strings/words such as ...
 
 \end{itemize}
 \end{frame}
@@ -225,13 +225,13 @@ def getDmcE(path):
 \scriptsize
 \begin{verbatim}
 ~$ python count_words.py -i -b christoffer_raw.tex Jørgen
-Number of occurances of word 'Jørgen' (case insensitive): 1
+Number of occurrences of word 'Jørgen' (case insensitive): 1
 
 ~$ python count_words.py -i christoffer_raw.tex "coupled cluster"
-Number of occurances of string 'coupled cluster' (case insensitive): 15
+Number of occurrences of string 'coupled cluster' (case insensitive): 15
 
 ~$ python count_words.py -i christoffer_raw.tex "monte carlo"
-Number of occurances of string 'monte carlo' (case insensitive): 2
+Number of occurrences of string 'monte carlo' (case insensitive): 2
 
 \end{verbatim}
 \normalsize
@@ -261,7 +261,7 @@ else:
 Nmatches = len(regExtObj.findall(rawFile))
 
 printfArgs = (stringOrWord, rawWord, printCase, Nmatches)
-print "Number of occurances of %s '%s'%s: %d" %  printfArgs
+print "Number of occurrences of %s '%s'%s: %d" %  printfArgs
 \end{verbatim}
 \normalsize
 \end{frame}
@@ -273,7 +273,7 @@ print "Number of occurances of %s '%s'%s: %d" %  printfArgs
 \begin{frame}[containsverbatim]
 \begin{itemize}
 
-\item Use \verb+list_occurances.py+ to reveal his most used words:
+\item Use \verb+list_occurrences.py+ to reveal his most used words:
  
 \vspace{0.2cm}
 \scriptsize
