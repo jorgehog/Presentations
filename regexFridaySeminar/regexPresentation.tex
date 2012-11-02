@@ -32,14 +32,6 @@
 
 \begin{frame}[fragile]
 \scriptsize
-\begin{itemize}
- \item \verb@anyNumber = r"\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
-\pause \item Above: Regex pattern for any number on the form $1$, $123.456$, $123.456e-123$, $123.456e+123$, etc.
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-\scriptsize
 \begin{verbatim}
 >>> import re
 >>> text = "asd1 foo 2.0 0.123213 foo foo 1E-2 foo 1e-04 1.2313e123" 
