@@ -1,0 +1,348 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{default, verbatim, graphicx}
+\usetheme{Warsaw}
+\title[Regex - for the people!]{Introduction to Regex\\Learn to recognize when you should use it.}
+\author{Jørgen Høgberget}
+\date{}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Today's show}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\section{Regular expressions. What the..?}
+
+\begin{frame}[fragile]
+\scriptsize
+\begin{itemize}
+ \item \verb@anyNumber = r"^?\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*\b?"@
+\pause \item Above: Regex pattern for any number on the form $1$, $123.456$, $123.456e-123$, $123.456e+123$, etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\scriptsize
+\begin{itemize}
+ \item \verb@anyNumber = r"\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
+\pause \item Above: Regex pattern for any number on the form $1$, $123.456$, $123.456e-123$, $123.456e+123$, etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\scriptsize
+\begin{verbatim}
+>>> import re
+>>> text = "asd1 foo 2.0 0.123213 foo foo 1E-2 foo 1e-04 1.2313e123" 
+>>> anyNumber = "\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"
+>>> re.findall(anyNumber, text)
+['1', '2.0', '0.123213', '1E-2', '1e-04', '1.2313e123']
+\end{verbatim}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cracking the code}
+\scriptsize
+\begin{itemize}
+ \item Regular expressions takes as input a \textit{pattern} and the \textit{source string}.
+ \pause \item \verb+anyNumber+ is a pattern reprisenting any number.
+ \item \verb@anyNumber = r"\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
+ \pause \item \verb@r"string"@ is a \textit{raw string}. These strings does not read special string identifiers such as \verb+\n+ (which might mess up the regexp).
+\end{itemize}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cracking the code}
+\scriptsize
+\begin{itemize}
+ \item \verb@anyNumber = r"\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
+ \item \verb@? + * . ) (@ has special functions. Let's focus on them later.
+
+\end{itemize}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cracking the code}
+\scriptsize
+\begin{itemize}
+ \item \verb@anyNumber = r"\s\d\.\d[eE][\-\+]\d)\s"@
+ \pause \item \verb+\s+ - matches any whitespace character (tabs, newlines, etc.)
+ \pause \item \verb+\d+ - matches any integer
+ \pause \item \verb+\.+ - matches a comma (we have to use \verb+\+ since . has a special function. (like \% in TeX))
+ \pause \item \verb+[eE]+ - matches either e or E 
+ \item \verb@[\+\-]@ - matches either + or - (again backslash since + and - has special function.)
+ \pause \item Summarized: Any number is isolated by spaces, starts with an integer, then a comma, then an integer, then e or E, then + or -, then an integer.
+ \item This is obviously not true, but in the \textit{right combinations} it is true. Let's go back to the special characters.
+\end{itemize}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cracking the code}
+\scriptsize
+\begin{itemize}
+ \item \verb@anyNumber = r"\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
+ \pause \item \verb@anyNumber =     *(  +  ?  *    ?      ?  *)  * @  
+ \item These special characters describe allowed combinations of the previous regexp.
+ \pause \item \verb+?+ : Optional. It is either there or not. In other words: The comma is optional, e or E is optional, + or - is optional.
+ \pause \item \verb@+@ : Not Optional. Allows for multiple successing regexp of the previous statement. \verb@\d+@ matches any integer.
+ \pause \item \verb+*+ : Optional combined with allowing any amount of the previous regex to success eachother.
+ \pause \item \verb@(...)@ : Identifies a \textit{group}. When we apply \verb+re.findall+, we want the numbers returned, not the spaces (\verb+\s*+) (even though they are a part of the regexp pattern); we put the matching number in a group.
+\end{itemize}
+\normalsize
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Cracking the code}
+\scriptsize
+\begin{itemize}
+\item \verb@anyNumber = r"\s*(\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
+\pause \item Does this expression allow for negative numbers?
+\pause \item Frank, Svenn-Arne; you are not allowed to answer.
+\pause \item Anyone else?
+\pause \item You are right! It does not!
+\item So what do we need to add?
+\pause \item A precurring \verb+-?+ (NOTE: Inside the group!)
+\pause \item We do not need a backslash since - is only special inside brackets. (\verb+[a-z]+ means any character between a and z will match)
+\end{itemize}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cracking the code}
+\scriptsize
+\begin{itemize}
+\item \verb@anyNumber = r"\s*(-?\d+\.?\d*[eE]?[\-\+]?\d*)\s*"@
+\item Does this expression allow for negative numbers?
+\item Frank, Svenn-Arne; you are not allowed to answer.
+\item Anyone else?
+\item You are right! It does not!
+\item What do we need to add?
+\item A precurring \verb+-?+
+\item We do not need a backslash since - is only special inside brackets. (\verb+[a-z]+ means any character between a and z will match)
+\end{itemize}
+\normalsize
+\end{frame}
+
+\section{Examples}
+\subsection{Retrieving data from raw output}
+
+\begin{frame}[containsverbatim]
+\scriptsize
+\begin{verbatim}
+...
+dmcE: 2.99999| Nw:  998| 92.30000%
+dmcE: 3.00000| Nw:  995| 92.40000%
+dmcE: 3.00000| Nw:  995| 92.50000%
+dmcE: 3.00000| Nw:  996| 92.60000%
+...
+dmcE: 2.99999| Nw:  998| 94.00000%
+dmcE: 3.00000| Nw:  999| 94.10000%
+dmcE: 3.00000| Nw:  999| 94.20000%
+dmcE: 3.00000| Nw:  998| 94.30000%
+dmcE: 3.00000| Nw:  995| 94.40000%
+dmcE: 3.00001| Nw:  992| 94.50000%
+dmcE: 3.00001| Nw:  993| 94.60000%
+...
+dmcE: 3.00002| Nw:  984| 99.80000%
+dmcE: 3.00001| Nw:  984| 99.90000%
+dmcE: 3.00002| Nw:  985| 100.00000%
+DMC FIN.
+Job fin
+\end{verbatim}
+\normalsize
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\scriptsize
+\begin{verbatim}
+def getDmcE(path):
+    stdout = open(path + "/stdout.txt", 'r')
+    stdoutRaw = "\n".join(stdout.readlines())
+    stdout.close()
+    
+    pattern = "dmcE:\s*(\d+\.?\d*)\s*\|\s*Nw:\s*\d+\|\s*100\.?[0]*%"
+    
+    r = re.findall(pattern, stdoutRaw)
+    
+    if r:
+        #r[0] = therm; r[1] = production
+
+        #Both thermalization and main cycles succeeded.
+        if len(r) ==2:
+               return float(r[1])
+        else:
+        #Run aborted after thermalization.
+               return "~" + r[0]
+    else:
+        #Run aborted.
+        return "N/A"
+\end{verbatim}
+\normalsize
+\end{frame}
+
+
+\subsection{Analyzing an Austrian's master thesis}
+
+\begin{frame}
+\begin{center}
+ \includegraphics[scale=0.1]{christoffer_1.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+ \includegraphics[scale=0.133]{christoffer_2.jpg}
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}[containsverbatim]
+\begin{itemize}
+ \item Step one: Concatinate all the his tex-files into one file:  
+ \vspace{0.2cm}
+\scriptsize
+\verb+~$ find . -name *.tex -exec cat {} \; > ~/.../christoffer_raw.tex+
+\normalsize
+
+ \item Use \verb+count_words.py+ to count the accurances of important strings/words such as ...
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\begin{itemize}
+
+ \item Jørgen, Coupled Cluster and Monte Carlo
+ \vspace{0.2cm}
+\scriptsize
+\begin{verbatim}
+~$ python count_words.py -i -b christoffer_raw.tex Jørgen
+Number of occurances of word 'Jørgen' (case insensitive): 1
+
+~$ python count_words.py -i christoffer_raw.tex "coupled cluster"
+Number of occurances of string 'coupled cluster' (case insensitive): 15
+
+~$ python count_words.py -i christoffer_raw.tex "monte carlo"
+Number of occurances of string 'monte carlo' (case insensitive): 2
+
+\end{verbatim}
+\normalsize
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\tiny
+\begin{verbatim}
+...cml-line parsing...
+
+#Adding bounds to the word (pattern=any spacing, word, any ending)
+stringOrWord = "string"
+if bounded:
+    stringOrWord = "word"
+    word = "[\^\s]" + word + "[\s\b]"
+    
+#Flaging case insensitivity
+if not caseSense:
+    regExtObj = re.compile(word, re.IGNORECASE)
+    printCase = " (case insensitive)"
+else:
+    regExtObj = re.compile(word)
+    printCase = ""
+
+Nmatches = len(regExtObj.findall(rawFile))
+
+printfArgs = (stringOrWord, rawWord, printCase, Nmatches)
+print "Number of occurances of %s '%s'%s: %d" %  printfArgs
+\end{verbatim}
+\normalsize
+\end{frame}
+
+
+
+
+
+\begin{frame}[containsverbatim]
+\begin{itemize}
+
+\item Use \verb+list_occurances.py+ to reveal his most used words:
+ 
+\vspace{0.2cm}
+\scriptsize
+\begin{verbatim}
+christoffer_raw.tex           
+word           : n              
+
+electron       : 498            
+tension        : 182            
+omega          : 134            
+basis          : 130            
+particle       : 126            
+operators      : 126            
+operator       : 117            
+delta          : 114            
+state          : 102            
+electrons      : 92             
+states         : 89    
+...
+\end{verbatim}
+\normalsize
+\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\tiny
+\begin{verbatim}
+import sys, re
+
+#load entire file into a string. Convert to lower case letters.
+f1 = open(sys.argv[1]); allwords = f1.read().lower(); f1.close()
+
+max_length = 15; min_length = 5
+
+#Recognize all words
+rePattern = r"[a-zA-Z]{%d,%d}" % (min_length, max_length)
+allwords = re.findall(rePattern, allwords)
+
+texWords = ... list of texWords such as begin, end, left, right..
+
+#count words
+wordCount = {}
+for word in allwords:
+    if word not in texWords and not re.findall('.*(fmf).*', word):
+        if word not in wordCount.keys():
+            wordCount[word] = 1
+        elif word in wordCount.keys():
+            wordCount[word] += 1
+
+#Sort scores from largest to lowest
+sort = sorted(wordCount.items(), key=lambda x: x[1], reverse=True)
+
+#Output:
+s = max_length
+print sys.argv[1].ljust(len(sys.argv[1]))
+print "%s: %s" % ("word".ljust(s), "n".ljust(s))     
+print
+for key, value in sort:
+    print "%s: %s" % (key.ljust(s), str(value).ljust(s))
+\end{verbatim}
+\normalsize
+\end{frame}
+
+\end{document}
