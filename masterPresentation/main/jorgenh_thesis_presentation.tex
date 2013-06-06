@@ -1,0 +1,39 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{default}
+\usepackage{graphicx}
+
+
+%-----------------------------------------------------%
+
+\newcommand{\OP}[1]{{\bf\widehat{#1}}}
+\newcommand{\ket}[1]{\left| #1 \right>}
+\newcommand{\bra}[1]{\left< #1 \right|}
+\newcommand{\braket}[2]{\left\langle #1 | #2\right\rangle}
+
+
+%-----------------------------------------------------%
+
+
+\usetheme{Warsaw}
+\title[Master Presentation]{Quantum Monte-Carlo Studies of Generalized Many-body Systems}
+\author{Jørgen Høgberget}
+\date{June 17, 2013}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+ \frametitle{Contents}
+ \tableofcontents[hideallsubsections]
+\end{frame}
+
+\input{../sections/QMC.tex}
+\input{../sections/demo.tex}
+\input{../sections/results.tex}
+
+\end{document}
