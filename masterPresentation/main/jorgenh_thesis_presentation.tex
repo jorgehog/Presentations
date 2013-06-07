@@ -3,6 +3,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{default}
 \usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{rotating}
+
 
 % \pdfminorversion=5
 
@@ -13,9 +16,13 @@
 \newcommand{\bra}[1]{\left< #1 \right|}
 \newcommand{\braket}[2]{\left\langle #1 | #2\right\rangle}
 \newcommand{\shift}{\vspace{0.5cm}\pause\\}
-
+\newcommand{\qqq}{\qquad\qquad\qquad}
+\newcommand{\qq}{\qquad\qquad}
+\newcommand{\rot}[1]{\begin{sideways}#1\end{sideways}}
+\newcommand{\OBDscale}{0.125}
 %-----------------------------------------------------%
 
+\newcommand{\subfigure}{\subfloat}
 
 \usetheme{Warsaw}
 \title[Master Presentation]{Quantum Monte-Carlo Studies of Generalized Many-body Systems}
