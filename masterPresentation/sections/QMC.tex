@@ -3,7 +3,7 @@
 \subsection{The basic idea}
 
 \begin{frame}
- Using the \textit{projection operator} $\OP{P}(\tau)$ on an arbitrary state $\ket{\Psi_T}$ projects the state onto the ground state of $\OP{H}$ as $\tau\to\infty$.  
+ Applying the \textit{projection operator} $\OP{P}(\tau)$ on an arbitrary state $\ket{\Psi_T}$ projects the state onto the ground state of $\OP{H}$ as $\tau\to\infty$.  
  \pause
   \begin{align*}
    \onslide<2->{\OP{P}(\tau)\ket{\Psi_T} &= \exp(-(\OP{H} - E_0)\tau)\ket{\Psi_T} \\}
@@ -25,22 +25,19 @@
 
  \pause
  \textbf{Idea I}: Use an arbitrary \textit{trial wave function} $\Psi_T(\mathbf{r})$ and perform the projection.
+ \shift
  
- \pause
- \vspace{0.5cm}
  \textbf{Problem}: Requires a priori knowledge of the exact ground state energy $E_0$.
+ \shift
  
- \pause
- \vspace{0.5cm}
  \textbf{Solution}: Introduce a \textit{trial energy} $E_T(\tau)$. Will work as long as the trial energy drops below $E_1$ at a certain stage (and stays there). 
  
 \end{frame}
 
 \begin{frame}
  
- In order to relate the projection process to a \textit{Markow chain} Monte-Carlo process, $\tau$ needs to be split into sequential steps $\delta\tau$. 
- \pause
- \vspace{0.5cm}
+ In order to relate the projection process to a \textit{Markov chain} Monte-Carlo process, $\tau$ needs to be split into sequential steps $\delta\tau$. 
+ \shift
  
  This is achieved by using the following property of the projection operator
  
@@ -73,7 +70,7 @@ where the relation is approximate due to $E_T$ not being constant.
 \end{frame}
 
 \begin{frame}
- \textbf{Idea}: In order to relate the Green's function to well known Markow processes, the exponential is split
+ \textbf{Idea}: In order to relate the Green's function to well known Markov processes, the exponential is split
  
  \begin{align*}
   \exp(-(\OP{H} - E_T)\delta\tau) &= \exp\left(\frac{1}{2}\nabla^2\delta\tau - (\OP{V} - E_T)\delta\tau\right)\\
@@ -81,16 +78,14 @@ where the relation is approximate due to $E_T$ not being constant.
      & \qquad  + \mathcal{O}(\delta\tau^2),
  \end{align*}
  
- where the kinetic part describes a diffusion process with diffusion constant $D=\frac{1}{2}$, and the potential part desribes a weighting (linear in position space). This is referred to as the \textit{short time approximation}.
+ where the kinetic part describes a diffusion process with diffusion constant $D=\frac{1}{2}$, and the potential part describes a weighting (linear in position space). This is referred to as the \textit{short time approximation}.
 
  
 \end{frame}
 
 \begin{frame}
  \textbf{Problem}: The Green's function has singular points in the Coulomb interaction.
- \vspace{0.5cm}
- 
- \pause
+ \shift
  
  \textbf{Solution}: By evolving $f(\mathbf{r}, \tau) = \Phi(\mathbf{r}, \tau)\Psi_T(\mathbf{r})$ instead of $\Phi(\mathbf{r}, \tau)$ alone, the singularities are \emph{implicitly} taken care of.
   
@@ -138,24 +133,61 @@ is the \textit{local energy}.
 \end{frame}
 
 \begin{frame}
- The process of projection is modelled by letting an ensemble of walkers span $f(\mathbf{r}, \tau)$. An iteration involves diffusing all the walkers and distributing new weights. 
+ The local energy dependence in the branching Green's function implicitly takes care of the singularities in $\OP{V}$. 
+ \shift
+ 
+ This is done by introducing the \textit{Jastrow factor} in $\Psi_T(\mathbf{r})$
+ 
+ \begin{equation}
+  J(\mathbf{r}) = \prod_{i > j}^N \exp\left(a_{ij} \frac{r_{ij}}{1 + \beta r_{ij}}\right),
+ \end{equation}
+ 
+ where $r_{ij} = |\mathbf{r}_i - \mathbf{r}_j|$, $N$ is the number of particles, $\beta$ is a variational parameter, and $a_{ij}$ is a constant depending on the spin eigenvalues of particles $i$ and $j$.
+ \shift
+ 
+ The Jastrow factor is tailored to cancel the singularities in the electron-electron Coulomb interaction as the relative distances decrease.
+ 
 \end{frame}
+
+
+\begin{frame}
+
+ \frametitle{The Markov process}
+
+ \textbf{Idea}: The process of projection is modelled by letting an ensemble of walkers span $f(\mathbf{r}, \tau)$. An iteration involves diffusing all the walkers and distributing new weights. 
+ \shift
+ 
+ \textbf{Problem}: The distribution $f(\mathbf{r}, \tau) = \Phi(\mathbf{r}, \tau)\Psi_T(\mathbf{r})$ is not exclusively positive unless the nodes (zeros) of $\Psi_T(\mathbf{r})$ matches those of $\Phi(\mathbf{r}, \tau)$. 
+ \shift
+ 
+ \textbf{Solution}: By \emph{fixing} the nodes of $f(\mathbf{r}, \tau)$ to match those of $\Psi_T(\mathbf{r})$, the nodes of $\Phi(\mathbf{r}, \tau)$ will consequently match these as well. This is known as the \textit{fixed node approximation} (FNA).
+ \shift
+ 
+ \textbf{Consequence}: If the FNA is not redundant, $\Phi(\mathbf{r}, \tau)$ will never converge to the exact ground state. 
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+ \begin{center}
+  \includegraphics[scale=0.3]{../graphics/fixxednode.pdf}
+ \end{center}
+ \caption{The fixed node approximation illustrated. The nodes of $\Phi(x, n\delta\tau)$ is fixed to match those of $\Psi_T(x)$.}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Branching}
 
 \textbf{Idea}: The weights are modelled by spawning and killing walkers with a rate equal to $G_\mathrm{B}$. 
+\shift
 
-\pause
-\vspace{0.5cm}
 \textbf{Problem}: $G_\mathrm{B}$ is not necessarily an integer.
+\shift
 
-\pause
-\vspace{0.5cm}
 \textbf{Solution}: Create $\mathrm{floor}(G_\mathrm{B})$ copies with a $G_\mathrm{B} - \mathrm{floor}(G_\mathrm{B})$ chance of creating an additional copy.
+\shift
 
-\vspace{0.5cm}
-\pause
 Or more compact: Create 
 
 \begin{equation}
@@ -182,17 +214,13 @@ copies, where $a \in [0,\,1)$ is a uniformly distributed random number. If the v
 \begin{frame}
  \frametitle{Diffusion}
  
- The diffusion equation representing $G_\mathrm{Diff}$ is the so-called \textit{Fokker-Planch equation}. 
- 
- \pause
- \vspace{0.5cm}
+ The diffusion equation representing $G_\mathrm{Diff}$ is the so-called \textit{Fokker-Planck equation}. 
+ \shift
  
  Anisotropic diffusion process. The quantum force pushes the walkers into regions of higher probability. 
+ \shift
  
- \pause
- \vspace{0.5cm}
- 
- According to the Fokker-Planch formalism, a new position $\mathbf{r}_{i+1}$ is calculated from the old one, $\mathbf{r}_i$, as follows
+ According to the Fokker-Planck formalism, a new position $\mathbf{r}_{i+1}$ is calculated from the old one, $\mathbf{r}_i$, as follows
  
  \begin{equation}
   \mathbf{r}_{i+1} = \mathbf{r}_i + D\delta\tau\mathbf{F}(\mathbf{r}_i) + \mathbf{\xi}, 
@@ -206,9 +234,7 @@ where $\mathbf{\xi}$ is a vector of normal distributed random numbers with varia
 \frametitle{Diffusion}
 
 \textbf{Problem}: Due to a finite time step, the previous equations do not guarantee convergence.  
-
-\pause
-\vspace{0.5cm}
+\shift
 
 \textbf{Solution}: The \textit{Metropolis algorithm} will correct this bias:  
 
@@ -219,13 +245,13 @@ where $\mathbf{\xi}$ is a vector of normal distributed random numbers with varia
 where $i\,\rightarrow\,j$ denotes a transition from state $i$ to state $j$, $A$ is the probability of accepting the transition, 
 
 \begin{equation*}
- R_G(i\,\rightarrow\,j) = G_\mathrm{diff}(\mathbf{r}_{i}, \mathbf{r}_{j}; \delta\tau)/G_\mathrm{diff}(\mathbf{r}_{j}, \mathbf{r}_{i}; \delta\tau),
+ R_G(i\,\rightarrow\,j) = G_\mathrm{Diff}(\mathbf{r}_{j}, \mathbf{r}_{i}; \delta\tau)/G_\mathrm{Diff}(\mathbf{r}_{i}, \mathbf{r}_{j}; \delta\tau),
 \end{equation*}
 
 and
 
 \begin{equation*}
- R_\psi(i\,\rightarrow\,j) = |\Psi_T(\mathbf{r}_i)/\Psi_T(\mathbf{r}_j)|.
+ R_\psi(i\,\rightarrow\,j) = |\Psi_T(\mathbf{r}_j)/\Psi_T(\mathbf{r}_i)|.
 \end{equation*}
 
 \end{frame}
@@ -233,83 +259,141 @@ and
 
 %% 15
 
-
 \begin{frame}
- Fixed node approximation
-\end{frame}
+ \frametitle{Recap}
+ 
+ \begin{itemize}
+ \item The projection process is approximated by the diffusion of an ensemble of walkers with distributed weights.
+ \pause \item Diffusion by the Fokker-Planck equation ensures efficient sampling by the use of the quantum force.
+ \pause \item The Metropolis algorithm corrects the bias introduced by a finite step length. Ensures that the walkers follow $|\Psi_T(\mathbf{r})|^2$.
+ \pause \item After each diffusion step, the walker is either killed or cloned based on the value of the branching Green's function. This ensures that the distribution of walkers follows $f(\mathbf{r}, \tau)$ and not $|\Psi_T(\mathbf{r})|^2$.
+ \end{itemize}
 
-\begin{frame}
- variational principle.
- VMC
-\end{frame}
-
-\begin{frame}
-also variational. A bit more tricky to show.
- DMC
-\end{frame}
-
-\begin{frame}
- Selecting the trial wave function.
- Choose a Slater determinant of similar eigenstates.
-\end{frame}
-
-\begin{frame}
- Introduce alpha
 \end{frame}
 
 
 \begin{frame}
- Jastrow. 
-\end{frame}
-
-\begin{frame}
- select opt var par by finding energy minimum.
-\end{frame}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% \begin{frame}
-% \frametitle{Diffusion}
-% 
-% Starting from the condition of \textit{detailed balance}
-% 
-% ...
-% 
-% \end{frame}
+ \frametitle{Variational Monte-Carlo}
+ Neglecting the branching term results in a method known as \textit{Variational Monte-Carlo} (VMC).
+ \shift
+ 
+ Corresponds to calculating $\bra{\Psi_T}\OP{H}\ket{\Psi_T}$ using a standard Monte-Carlo approach
+ 
+ \begin{equation}
+  \bra{\Psi_T}\OP{H}\ket{\Psi_T} = \int_\mathbf{r} |\Psi_T(\mathbf{r})|^2 E_L(\mathbf{r})\mathrm{d}\mathbf{r} \simeq \frac{1}{N}\sum_{i=1}^N \frac{1}{\Psi_T(\mathbf{r_i})}\OP{H}\Psi_T(\mathbf{r}_i) 
+ \end{equation}
+  \shift
+ 
+ Notice that using any other distribution than $|\Psi_T(\mathbf{r})|^2$ to sample the points $\mathbf{r}_i$ results in undefined samples of the local energy.
 
  
+\end{frame}
 
+\begin{frame}
+ \frametitle{\textbf{Variational} Monte-Carlo}
+ 
+ Variational Monte-Carlo will always result in an energy which is greater or equal to the exact ground state energy
+ 
+ \begin{align*}
+  \bra{\Psi_T}\OP{H}\ket{\Psi_T} &= \sum_{ij} C_i^\ast C_j \underbrace{\bra{\Psi_i} \OP{H} \ket{\Psi_j}}_{E_i\delta_{ij}} \\
+                                 &= \sum_i |C_i|^2 E_i \\
+                                 &= \sum_i |C_i|^2 (E_0 + \Delta E_i) \\
+                                 &= E_0 \underbrace{\sum_i |C_i|^2}_{1} + \underbrace{\sum_i |C_i|^2\Delta E_i}_{\ge 0} \\
+                                 &\ge E_0.
+ \end{align*}
+\end{frame}
 
+\begin{frame}
+ The \textit{variational principle} introduced in the previous slide opens up the possibility to introduce \textit{variational parameters} in $\Psi_T(\mathbf{r})$ whose values are found by minimizing the VMC energy in the parameter space.
+ \shift
+ 
+ Already have $\beta$ from the Jastrow factor. 
+ \shift
+ 
+ The \textit{spatial} wave function is modelled as a single \textit{Slater determinant}, which can be split into two parts $|\mathbf{S(\mathbf{r})}^\uparrow|$ and $|\mathbf{S(\mathbf{r})}^\downarrow|$ corresponding to two spin levels due to the fact that the Hamiltonian is assumed to be \emph{spin independent}.
+ \shift
+ 
+ Introducing the variational parameter $\alpha$ into the spatial wave function yields
+ 
+ 
+ \begin{equation}
+  \Psi_T(\mathbf{r}; \alpha, \beta) = |\mathbf{S(\mathbf{r}; \alpha)}^\uparrow||\mathbf{S(\mathbf{r}; \alpha)}^\downarrow|J(\mathbf{r}; \beta)
+ \end{equation}
 
+ 
+ 
+\end{frame}
 
+\begin{frame}
+\frametitle{Diffusion Monte-Carlo}
+Including both diffusion and branching results in a method known as \textit{Diffusion Monte-Carlo} (DMC).
+\shift
 
+The DMC energy corresponds to the following integral
 
+\begin{equation}
+ E_{\mathrm{DMC}} = \frac{\int_\mathbf{r} f(\mathbf{r}, \tau) \frac{1}{\Psi_T(\mathbf{r})}\OP{H} \Psi_T(\mathbf{r})\mathrm{d}\mathbf{r}}{\int_\mathbf{r} f(\mathbf{r}, \tau)\mathrm{d}\mathbf{r}}  = \frac{\bra{\Phi(\tau)} \OP{H} \ket{\Psi_T}}{\braket{\Phi(\tau)}{\Psi_T}},
+\end{equation}
 
+\pause
+which upon convergence of the projection results in $\OP{H}\ket{\Phi(\tau)} = E_0\ket{\Phi(\tau)}$. The energy becomes
 
+\begin{equation}
+ E_{\mathrm{DMC}} = \frac{\bra{\Phi(\tau)}E_0\ket{\Psi_T}}{\braket{\Phi(\tau)}{\Psi_T}} = E_0.
+\end{equation}
 
+\end{frame}
 
+\begin{frame}
+ \frametitle{Limitations: VMC}
+ 
+ VMC is extremely robust, however, extremely dependent on a good ansatz for $\Psi_T(\mathbf{r})$.
+ 
+\end{frame}
 
-
+\begin{frame}
+ \frametitle{Limitations: VMC}
+ 
+ \begin{figure}
+  \begin{center}
+   \includegraphics[scale=0.35]{../graphics/WFComp.png}
+  \end{center}
+  \caption{Comparison of different trial wave functions for a two-dimensional 12-particle quantum dot with unit frequency.}
+ \end{figure}
+ 
+\end{frame}
 
 
 \begin{frame}
- End of section.
+  \frametitle{Limitations: DMC}
+  
+  As discussed previously: The fixed node approximation.
+  \shift
+  
+  \textbf{Problem}: The branching can get out of control for high \textit{variance} systems. 
+  \shift
+  
+  \textbf{Solution}: Can be countered by choosing a lower time step. 
+  \shift
+  
+  \textbf{Consequence}: Slower convergence. Breaking the requirement of \textit{ergodicity}.
+  
 \end{frame}
+
+\begin{frame}
+   \frametitle{Limitations: DMC}
+   
+   Diffusion Monte-Carlo is not as dependent on the trial wave function as VMC.
+   
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+  \begin{center}
+   \includegraphics[scale=0.35]{../graphics/DMC_notExactWF.png}
+  \end{center}
+  \caption{DMC calculation without the exact wave function. The exact result is $E_0=2$. The VMC energy is $2.0042(3)$, whereas the DMC energy is $2.00000(2)$.}
+ \end{figure}
+\end{frame}
+
+
