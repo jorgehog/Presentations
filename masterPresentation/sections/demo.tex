@@ -1,17 +1,22 @@
-\section{Demonstrations}
-
-\subsection{HallaLive}
+\subsection{Demonstrations}
 
 \begin{frame}
- OpenGL: vis bilde av qdots 3d w0.01 og vis simuleringa. Beskriv dårlige konfigurasjoner og gode konfigurasjoner.
- DMC dreper de dårligste konfigurasjonene, dvs. de hvor en partikkel har forvirret seg til midten (ut fra figur).
+\frametitle{Live demonstration}
+
+\setlength{\tabcolsep}{0.1pt}
+\def\arraystretch{0}
+\begin{figure}
+ \begin{center}
+ \begin{tabular}{rl}
+   \footnotesize{\rot{$\qquad\omega=1$}}&\subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Q3D/QD8w1_3D.png}}
+   \subfigure{\includegraphics[scale=0.17]{../graphics/OBD/OBD_Q3D/QD8w1_2D.png}} \\
+   \footnotesize{\rot{$\quad\,\,\omega=0.01$}}&\subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Q3D/QD8w001_3D.png}} 
+   \subfigure{\includegraphics[scale=0.17]{../graphics/OBD/OBD_Q3D/QD8w001_2D.png}} 
+  \end{tabular}
+  \caption{Demonstrated: Diffusion according to the following distributions.}
+  \label{fig:OBD_QDOTS3D_lowfreq}
+ \end{center}
+\end{figure}
+\def\arraystretch{1}
 \end{frame}
 
-
-\begin{frame}
- Beskriv og vis minimering av trial wave function real time.
- Beskriv og vis VMC + blockingprosessen real-time.
- Vis VMC qdots 2d vmc og DMC real time konvergens.
- vis skalering
- showoff distribusjoner?
-\end{frame}
