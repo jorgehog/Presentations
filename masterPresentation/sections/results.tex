@@ -195,23 +195,305 @@ Pure density & $|\Phi(\mathbf{r}, \tau)|^2$
 \end{frame}
 
 \begin{frame}
+ The electrons become more \textit{localized} and dilute. 
+ \shift
+ 
+ The two- and three-dimensional densities no longer match.
+ \shift
+ 
+ Transition into a new region?
+\end{frame}
+
+
+\begin{frame}
  \begin{figure}
  \begin{center}
-  \subfigure{\includegraphics[scale=0.25]{../graphics/OBD/OBD_DMC/dist_out_QDots20c001_3D.png}}
-  \subfigure{\includegraphics[scale=0.15]{../graphics/wigner/wigner20.png}}
+  \subfigure{\includegraphics[scale=0.25]{../graphics/OBD/OBD_DMC/dist_out_QDots6c001_3D.png}}
+  \subfigure{\includegraphics[scale=0.2]{../graphics/wigner/wigner6.png}}
   \label{fig:wigner20}
-  \caption{OBD for a 20-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from P. Galatola et al.~Eur. Phys. J. B \textbf{50}, 549 (2006)}
+  \caption{OBD for a 6-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from F. Bolton, U. Rössler.  \textit{Superlattices and microstructures} \textbf{13}, 139 (1993).}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+ \begin{center}
+  \subfigure{\includegraphics[scale=0.25]{../graphics/wigner/locked6_2d.png}}
+  \subfigure{\includegraphics[scale=0.2]{../graphics/wigner/wigner6.png}}
+  \label{fig:wigner20}
+  \caption{OBD for a 6-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from F. Bolton, U. Rössler.  \textit{Superlattices and microstructures} \textbf{13}, 139 (1993).}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+ \begin{center}
+  \subfigure{\includegraphics[scale=0.25]{../graphics/wigner/locked6_3d.png}}
+  \subfigure{\includegraphics[scale=0.2]{../graphics/wigner/wigner6.png}}
+  \label{fig:wigner20}
+  \caption{OBD for a 6-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from F. Bolton, U. Rössler.  \textit{Superlattices and microstructures} \textbf{13}, 139 (1993).}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+ \begin{center}
+  \subfigure{\includegraphics[scale=0.25]{../graphics/OBD/OBD_DMC/dist_out_QDots12c001_3D.png}}
+  \subfigure{\includegraphics[scale=0.2]{../graphics/wigner/wigner10.png}}
+  \label{fig:wigner20}
+  \caption{OBD for a 12-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from F. Bolton, U. Rössler.  \textit{Superlattices and microstructures} \textbf{13}, 139 (1993).}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+ \begin{center}
+  \subfigure{\includegraphics[scale=0.25]{../graphics/wigner/locked12_3d.png}}
+  \subfigure{\includegraphics[scale=0.2]{../graphics/wigner/wigner10.png}}
+  \label{fig:wigner20}
+  \caption{OBD for a 12-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from F. Bolton, U. Rössler.  \textit{Superlattices and microstructures} \textbf{13}, 139 (1993).}
  \end{center}
 \end{figure}
 \end{frame}
 
 
-\subsection{Atomic systems}
-
 \begin{frame}
- asdasd
+ \begin{figure}
+ \begin{center}
+  \subfigure{\includegraphics[scale=0.25]{../graphics/OBD/OBD_DMC/dist_out_QDots20c001_3D.png}}
+  \subfigure{\includegraphics[scale=0.15]{../graphics/wigner/wigner20.png}}
+  \label{fig:wigner20}
+  \caption{OBD for a 20-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from P. Galatola et al.~\textit{Eur. Phys. J. B} \textbf{50}, 549 (2006).}
+ \end{center}
+\end{figure}
 \end{frame}
 
+\begin{frame}
+ This effect is called \textit{Wigner Crystallization} and is expected for low density electron gases when the \textbf{kinetic energy on average becomes far lower than the corresponding total potential energy}.
+ \shift
+ 
+ The connection between potential and kinetic energy is given by the \textit{virial theorem}
+ 
+ \begin{equation}
+  V(\mathbf{r}) \propto r^\gamma \quad\longrightarrow\quad \langle \OP{T} \rangle = \frac{\gamma}{2} \langle \OP{V} \rangle, \label{eq:virial}
+ \end{equation}
+ \shift
+ 
+ Systems with similar proportionality constant follow the same effective potential, that is, they have similar eigenstates.
+
+\end{frame}
+
+\begin{frame}
+ \captionsetup[subfloat]{labelformat=empty}
+\begin{figure}[h]
+ \begin{center}
+  \subfigure[$N=6$]{\includegraphics[scale=0.25]{../graphics/VirialPlots/E_vs_w_E6.png}}
+  \subfigure[$N=42$]{\includegraphics[scale=0.25]{../graphics/VirialPlots/E_vs_w_E42.png}} \\
+  \caption{The relative magnitude of the expectation value of the different energy sources as a function of the frequency $\omega$ (left) together with the magnitude of the sources' energy contributions scaled with the oscillator frequency (right).}
+  \label{fig:E_dist_qdots}
+ \end{center}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+ Conclusions:
+ \shift
+ The kinetic energy falls whereas the total potential energy increases.
+ \shift
+ The kinetic energy is proportional to the frequency
+ 
+ \begin{equation}
+  \langle \OP{T} \rangle \propto \omega.
+ \end{equation}
+ 
+\end{frame}
+
+\begin{frame}
+ Transition into a Wigner crystal? 
+ \captionsetup[subfloat]{labelformat=empty}
+ \begin{figure}[h]
+ \begin{center}
+  \subfigure[$N=6$]{\includegraphics[scale=0.3]{../graphics/VirialPlots/E_vs_w_V6.png}}
+  \subfigure[$N=42$]{\includegraphics[scale=0.3]{../graphics/VirialPlots/E_vs_w_V42.png}} \\
+  \caption{The total kinetic energy vs. the total potential energy of two dimensional quantum dots. NB: Collapsed.}
+  \label{fig:V_dist_qdots}
+ \end{center}
+\end{figure}
+\captionsetup[subfloat]{labelformat=parens}
+\end{frame}
+
+\begin{frame}
+ Preliminary double-well density
+ 
+ \begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.25]{../graphics/DoubleWell.png}
+  \caption{A countour plot of the trial wave function for a two-particle double-well quantum dot with the wells separated at a distance $R = 2$.}
+  \label{fig:doubleWell}
+ \end{center}
+\end{figure}
+ 
+\end{frame}
+
+
+\subsection{Atomic systems}
+
+\footnotesize
+\begin{frame}
+ \begin{table}
+\begin{center}
+\begin{tabular}{lp{1cm}ccl}
+Atom & & $E_\mathrm{VMC}$ & \qquad $E_\mathrm{DMC}$ & \qquad\,\, Expt. \\
+\hline\hline
+\ \\
+He & \qquad & -2.8903(2) & \qquad -2.9036(2) & \qquad $-2.9037$ \\
+\ \\
+Be & \qquad & -14.145(2) & \qquad -14.657(2)  & \qquad $-14.6674$\\
+\ \\
+Ne & \qquad & -127.853(2) & \qquad -128.765(4) & \qquad $-128.9383$  \\
+\ \\
+Mg & \qquad & -197.269(3) & \qquad -199.904(8) & \qquad $-200.054$  \\
+\ \\
+Ar & \qquad & -524.16(7) & \qquad -527.30(4) & \qquad $-527.544$   \\
+\ \\
+Kr & \qquad & -2700(5) & \qquad -2749.9(2) & \qquad $-2752.054976$  \\
+\ \\
+\end{tabular}
+\caption{Ground state energies for atoms calculated using Variational - and Diffusion Monte-Carlo.}
+\label{tab:AtomsRes}
+\end{center}
+\end{table}
+\normalsize
+\end{frame}
+
+\begin{frame}
+ Quantum dots results for VMC and DMC were significantly more similar. 
+ \shift
+ Worse for the non-noble gases and for higher number of particles.
+ \shift
+ Easier to excite an electron into the next sub-shell (next $l$) than to the next $n$.
+ \shift
+ The hydrogenic ansatz only accounts for \textit{bound states}. 
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+ \begin{center}
+   \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Atoms/3D/Helium.png}} 
+   \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_Atoms/2D/Helium.png}}  \\
+   \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Atoms/3D/Neon.png}} 
+   \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_Atoms/2D/Neon.png}}  \\
+%    \subfigure{\includegraphics[scale=0.4]{../graphics/OBD/OBD_Atoms/3D/Argon.png}} 
+%    \subfigure{\includegraphics[scale=0.3]{../graphics/OBD/OBD_Atoms/2D/Argon.png}}  \\
+%    \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Atoms/3D/Krypton.png}} 
+%    \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_Atoms/2D/Krypton.png}}  \\
+  \caption{One-body densities for noble gases. Counting top to bottom: Helium and neon. }
+  \label{fig:OBD_noble_Atoms_2D_combo}
+ \end{center}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+  \begin{figure}
+ \begin{center}
+   \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Atoms/3D/Beryllium.png}} 
+   \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_Atoms/2D/Beryllium.png}}  \\
+   \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_Atoms/3D/Magnesium.png}} 
+   \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_Atoms/2D/Magnesium.png}}  \\
+  \caption{Three dimensional one-body density for alkaline earth metals; beryllium (top) and magnesium (bottom).}
+  \label{fig:OBD_alkaline_Atoms_2D_combo}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{table}
+\begin{center}
+\begin{tabular}{lcccrlrr}
+Molecule & $R$ & & \qquad & $E_\mathrm{VMC}$ & & \qquad $E_\mathrm{DMC}$ & \qquad\,\, Expt.\\
+\hline\hline
+\ \\
+$\mathrm{H_2}$ & 1.4   & &\qquad & -1.1551(3)    & \qquad   & -1.1745(3)   & \qquad $-1.1746$     \\
+\ \\
+$\mathrm{Li_2}$& 5.051 & &\qquad & -14.743(3)    & \qquad   & -14.988(2)   & \qquad $-14.99544$     \\
+\ \\
+$\mathrm{Be_2}$& 4.63  & &\qquad & -28.666(5)    & \qquad   & -29.301(5)   & \qquad $-29.33854(5)$  \\
+\ \\
+$\mathrm{B_2}$ & 3.005 & &\qquad & -47.746(7)    & \qquad   & -49.155(5)   & \qquad $-49.4184$    \\
+\ \\
+$\mathrm{C_2}$ & 2.3481& &\qquad & -72.590(8)    & \qquad   & -74.95(1)    & \qquad $-75.923(5)$   \\
+\ \\
+$\mathrm{N_2}$ & 2.068 & &\qquad & -102.78(1)    & \qquad   & -106.05(2)   & \qquad $-109.5423$    \\
+\ \\
+$\mathrm{O_2}$ & 2.282 & &\qquad & -143.97(2)    & \qquad   & -148.53(2)   & \qquad $-150.3268$    \\
+\ \\
+\end{tabular}
+\caption{Ground state energies for homonuclear diatomic molecules calculated using VMC and DMC. }
+\label{tab:MoleculesRes}
+\end{center}
+\end{table}
+\end{frame}
+
+
+\begin{frame}
+ \begin{figure}[h]
+ \begin{center}
+   \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_MOL/Li2_3D.png}} 
+   \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_MOL/Li2_2D.png}}  \\
+   \subfigure{\includegraphics[scale=0.2]{../graphics/OBD/OBD_MOL/O2_3D.png}} 
+   \subfigure{\includegraphics[scale=0.15]{../graphics/OBD/OBD_MOL/O2_2D.png}}
+  \caption{One-body densities of $\mathrm{Li_2}$ (top) and $\mathrm{O_2}$ (bottom). }
+  \label{fig:OBD_Molecules}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Parameterizing Force-field Potentials}
+
+The potential energy in a molecular dynamics simulation is \emph{any energy source which can be used to alter the kinetic energy of the atoms}.
+\shift
+
+The electrons are not simulated, hence the \emph{total energy of the quantum mechanical system correspond to the molecular potential}.
+
+\begin{equation}
+ F_\mathrm{MD}(R) = \frac{\mathrm{d} V_\mathrm{MD}}{\mathrm{d} R} = \frac{\mathrm{d} E}{\mathrm{d} R}.
+\end{equation}
+\shift
+
+This energy vs. $R$ relation can be parameterized using Quantum Monte-Carlo.
+
+
+\end{frame}
+
+\begin{frame}
+ \captionsetup[subfloat]{labelformat=empty}
+ \begin{figure}
+ \begin{center}
+  \subfigure[$\mathrm{H_2}$]{\includegraphics[scale=0.25]{../graphics/R_VS_E/R_vs_E_hyd_pure.png}}
+  \subfigure[$\mathrm{Li_2}$]{\includegraphics[scale=0.25]{../graphics/R_VS_E/R_vs_E_lit_pure.png}} 
+  \caption{Top figures: The distance between the atoms $R$ vs. the potential and total energy calculated using QMC.}
+  \label{fig:molecules_R_vs_E}
+ \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+ \begin{center}
+  \includegraphics[scale=0.5]{../graphics/R_VS_E/LD.png}
+  \caption{The Lennard-Jones 12-6 potential.}
+  \label{fig:LennardJones}
+   \end{center}
+\end{figure}
+\end{frame}
 
 
 
