@@ -1,108 +1,158 @@
 \section{The basics of Quantum Monte-Carlo}
 
-\begin{frame}
- \frametitle{Unfamiliar with Quantum Mechanics?}
- 
- Imagine states as vectors and operators as matrices:
- 
- \begin{align*}
-  \ket{\Psi} &\to \left(\begin{array}{c} a\\ b \end{array}\right). \\
-  &\\
-  \bra{\Psi} &\to \left(a^\ast,\, b^\ast\right). \\
-  &\\
-  \OP{H} &\to \left(\begin{array}{cc} h_{11} & h_{12} \\ h_{21} & h_{22} \end{array}\right).                         
- \end{align*}
- 
- \pause
- Ground state energy: Lowest eigenvalue of $\OP{H}$.
- \pause
- 
- Ground state: Corresponding eigenvector $\ket{\Psi_0}$.
- 
- \end{frame}
+% \begin{frame}
+%  \frametitle{Unfamiliar with Quantum Mechanics?}
+%  
+%  Imagine states as vectors and operators as matrices:
+%  
+%  \begin{align*}
+%   \ket{\Psi} &\to \left(\begin{array}{c} a\\ b \end{array}\right). \\
+%   &\\
+%   \bra{\Psi} &\to \left(a^\ast,\, b^\ast\right). \\
+%   &\\
+%   \OP{H} &\to \left(\begin{array}{cc} h_{11} & h_{12} \\ h_{21} & h_{22} \end{array}\right).                         
+%  \end{align*}
+%  
+%  \pause
+%  Ground state energy: Lowest eigenvalue of $\OP{H}$.
+%  \pause
+%  
+%  Ground state: Corresponding eigenvector $\ket{\Psi_0}$.
+%  
+%  \end{frame}
 
  
 
 \subsection{The basic idea}
 
 \begin{frame}
- Applying the \textit{projection operator} $\OP{P}(\tau)$ on an arbitrary state $\ket{\Psi_T}$ projects the state onto the ground state of $\OP{H}$ as $\tau\to\infty$.  
- \pause
+
+\frametitle{The basic idea}
+
+\begin{itemize}
+  \item Project an arbitrary state down on the exact ground state.
+  \item Model this state by an ensemble of random walkers.
+  \item Simulate the projection using stochastic processes.
+\end{itemize}
+
+\end{frame}
+
+% \subsection{The projection}
+
+\begin{frame}
+\frametitle{The projection}
+%  Applying the \textit{projection operator} $\OP{P}(\tau)$ on an arbitrary state $\ket{\Psi_T}$ projects the state onto the ground state of $\OP{H}$ as $\tau\to\infty$.  
+%  \pause
+%   \begin{align*}
+%    \onslide<2->{\OP{P}(\tau)\ket{\Psi_T} &= \exp(-(\OP{H} - E_0)\tau)\ket{\Psi_T} \\}
+%    \onslide<3->{&= \exp(-(\OP{H} - E_0)\tau)\sum_{k} C_k\ket{\Psi_k} \\}
+%    \onslide<4->{&= \sum_{k} C_k\exp(-(E_k - E_0)\tau) \ket{\Psi_k} \\}
+%    \onslide<5->{&= C_0\ket{\Psi_0} + \sum_{k=1} C_k\exp(-\Delta E_k\tau) \ket{\Psi_k},}
+%   \end{align*}
   \begin{align*}
-   \onslide<2->{\OP{P}(\tau)\ket{\Psi_T} &= \exp(-(\OP{H} - E_0)\tau)\ket{\Psi_T} \\}
-   \onslide<3->{&= \exp(-(\OP{H} - E_0)\tau)\sum_{k} C_k\ket{\Psi_k} \\}
-   \onslide<4->{&= \sum_{k} C_k\exp(-(E_k - E_0)\tau) \ket{\Psi_k} \\}
-   \onslide<5->{&= C_0\ket{\Psi_0} + \sum_{k=1} C_k\exp(-\Delta E_k\tau) \ket{\Psi_k},}
+  \OP{P}(\tau) &= \exp(-(\OP{H} - E_0)\tau) \\
+  \OP{P}(\tau)\ket{\Psi_T} &= C_0\ket{\Psi_0} + \sum_{k=1} C_k\exp(-\Delta E_k\tau) \ket{\Psi_k}
   \end{align*}
 
-  \onslide<5->where $\Delta E_k > 0$ and $C_k = \braket{\Psi_k}{\Psi_T}$. 
+  where $\Delta E_k > 0$ and $C_k = \braket{\Psi_k}{\Psi_T}$. 
+  
+  \pause 
+  
+   In other words
+ 
+ \begin{equation*}
+  \lim_{\tau\to\infty}\bra{\mathbf{r}}\OP{P}(\tau)\ket{\Psi_T} = \braket{\Psi_0}{\Psi_T}\Psi_0(\mathbf{r}).
+ \end{equation*}
 
 \end{frame}
 
 \begin{frame}
- In other words
- 
- \begin{equation}
-  \lim_{\tau\to\infty}\bra{\mathbf{r}}\OP{P}(\tau)\ket{\Psi_T} = \braket{\Psi_0}{\Psi_T}\Psi_0(\mathbf{r}).
- \end{equation}
-
- \pause
- \textbf{Idea}: Use an arbitrary \textit{trial wave function} $\Psi_T(\mathbf{r})$ and perform the projection.
+ \frametitle{The stochastic process}
+ In order to relate the projection process to a \textit{Markov chain} Monte-Carlo process, $\tau$ needs to be split into sequential steps $\delta\tau$. 
  \shift
+ 
+Using that 
+ 
+%  \begin{align*}
+%   \OP{P}(\tau + \delta\tau) &= \exp(-(\OP{H} - E_T(\tau + \delta\tau))(\tau + \delta\tau)) \\
+%                             &=  \exp(-(\OP{H} - E_T(\tau + \delta\tau))\delta\tau) \\
+%                             & \qquad \times\exp(-(\OP{H} - E_T(\tau + \delta\tau))\tau) \\
+%                            \onslide<3->{ &\simeq \exp(-(\OP{H} - E_T(\tau + \delta\tau))\delta\tau)\OP{P}(\tau),}
+%  \end{align*}
+
+\begin{equation*}
+ \OP{P}(\tau + \delta\tau) = \exp(-(\OP{H} - E_0)\delta\tau)\OP{P}(\tau),
+\end{equation*}
+
+yields 
+
+
+\begin{align*}
+\Phi(\mathbf{r}, \tau + \delta\tau) &\equiv \bra{\mathbf{r}}\OP{P}(\tau + \delta\tau)\ket{\Psi_T} \\
+   &= \int_\mathbf{r'}\bra{\mathbf{r}}\exp(-(\OP{H} - E_0)\delta\tau)\ket{\mathbf{r'}}\Phi(\mathbf{r'}, \tau)\mathrm{d}\mathbf{r'},
+\end{align*}
+
+\pause
+
+\begin{equation*} 
+\bra{\mathbf{r}}\exp(-(\OP{H} - E_0)\delta\tau)\ket{\mathbf{r'}} \equiv G(\mathbf{r'}, \mathbf{r}; \delta\tau).
+\end{equation*}
+
+
+% \onslide<3->{where the relation is approximate due to $E_T$ not being constant.}
+ 
+ 
+ 
+\end{frame}
+
+
+
+
+
+% \begin{frame}
+%   Let $\ket{\Phi(\tau)}$ represent $\OP{P}(\tau)\ket{\Psi_T}$. Using the relation from the previous slide reveals
+%   \pause
+%   \begin{align*}
+%    \onslide<2->{\Phi(\mathbf{r}, \tau + \delta\tau) &= \braket{\mathbf{r}}{\Phi(\tau + \delta\tau)} \\ &= \bra{\mathbf{r}}\OP{P}(\tau + \delta\tau)\ket{\Psi_T} \\}
+%    \onslide<3->{&\simeq  \bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\OP{P}(\tau)\ket{\Psi_T} \\}
+%    \onslide<4->{&=\bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\ket{\Phi(\tau)}  \\}
+%    \onslide<5->{&= \int_\mathbf{r'}\bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\ket{\mathbf{r'}}\Phi(\mathbf{r'}, \tau)\mathrm{d}\mathbf{r'},}
+%   \end{align*}
+%   
+%   \pause\pause\pause\pause
+%   where $\bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\ket{\mathbf{r'}} \equiv G(\mathbf{r'}, \mathbf{r}; \delta\tau)$ is a \textit{Green's function} interpreted as the transition probability between $\mathbf{r}$ and $\mathbf{r'}$.
+%     
+% \end{frame}
+
+\begin{frame}
+\frametitle{The stochastic process}
+ In order to relate the Green's function to well known Markov processes, the exponential is split
+ 
+ \begin{align*}
+  \exp(-(\OP{H} - E_0)\delta\tau) &= \exp\left(\frac{1}{2}\nabla^2\delta\tau - (\OP{V} - E_0)\delta\tau\right)\\
+     &= \exp\left(\frac{1}{2}\nabla^2\delta\tau\right)\exp( - (\OP{V} - E_0)\delta\tau) \\
+     & \qquad  + \mathcal{O}(\delta\tau^2),
+ \end{align*}
+ 
+which reads \textit{diffusion} and \textit{weighting}.
+ 
+\end{frame}
+
+\begin{frame}
+%  In other words
+%  
+%  \begin{equation}
+%   \lim_{\tau\to\infty}\bra{\mathbf{r}}\OP{P}(\tau)\ket{\Psi_T} = \braket{\Psi_0}{\Psi_T}\Psi_0(\mathbf{r}).
+%  \end{equation}
+% 
+%  \pause
+%  \textbf{Idea}: Use an arbitrary \textit{trial wave function} $\Psi_T(\mathbf{r})$ and perform the projection.
+%  \shift
  
  \textbf{Problem}: Requires a priori knowledge of the exact ground state energy $E_0$.
  \shift
  
- \textbf{Solution}: Introduce a \textit{trial energy} $E_T(\tau)$. Will work as long as the trial energy drops below $E_1$ at a certain stage (and stays there). 
- 
-\end{frame}
-
-\begin{frame}
- 
- In order to relate the projection process to a \textit{Markov chain} Monte-Carlo process, $\tau$ needs to be split into sequential steps $\delta\tau$. 
- \shift
- 
- This is achieved by using the following property of the projection operator
- 
- \begin{align*}
-  \OP{P}(\tau + \delta\tau) &= \exp(-(\OP{H} - E_T(\tau + \delta\tau))(\tau + \delta\tau)) \\
-                            &=  \exp(-(\OP{H} - E_T(\tau + \delta\tau))\delta\tau) \\
-                            & \qquad \times\exp(-(\OP{H} - E_T(\tau + \delta\tau))\tau) \\
-                           \onslide<3->{ &\simeq \exp(-(\OP{H} - E_T(\tau + \delta\tau))\delta\tau)\OP{P}(\tau),}
- \end{align*}
-
-\onslide<3->{where the relation is approximate due to $E_T$ not being constant.}
- 
- 
- 
-\end{frame}
-
-\begin{frame}
-  Let $\ket{\Phi(\tau)}$ represent $\OP{P}(\tau)\ket{\Psi_T}$. Using the relation from the previous slide reveals
-  \pause
-  \begin{align*}
-   \onslide<2->{\Phi(\mathbf{r}, \tau + \delta\tau) &= \braket{\mathbf{r}}{\Phi(\tau + \delta\tau)} \\ &= \bra{\mathbf{r}}\OP{P}(\tau + \delta\tau)\ket{\Psi_T} \\}
-   \onslide<3->{&\simeq  \bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\OP{P}(\tau)\ket{\Psi_T} \\}
-   \onslide<4->{&=\bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\ket{\Phi(\tau)}  \\}
-   \onslide<5->{&= \int_\mathbf{r'}\bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\ket{\mathbf{r'}}\Phi(\mathbf{r'}, \tau)\mathrm{d}\mathbf{r'},}
-  \end{align*}
-  
-  \pause\pause\pause\pause
-  where $\bra{\mathbf{r}}\exp(-(\OP{H} - E_T)\delta\tau)\ket{\mathbf{r'}} \equiv G(\mathbf{r'}, \mathbf{r}; \delta\tau)$ is a \textit{Green's function} interpreted as the transition probability between $\mathbf{r}$ and $\mathbf{r'}$.
-    
-\end{frame}
-
-\begin{frame}
- \textbf{Idea}: In order to relate the Green's function to well known Markov processes, the exponential is split
- 
- \begin{align*}
-  \exp(-(\OP{H} - E_T)\delta\tau) &= \exp\left(\frac{1}{2}\nabla^2\delta\tau - (\OP{V} - E_T)\delta\tau\right)\\
-     &= \exp\left(\frac{1}{2}\nabla^2\delta\tau\right)\exp( - (\OP{V} - E_T)\delta\tau) \\
-     & \qquad  + \mathcal{O}(\delta\tau^2),
- \end{align*}
- 
- where the kinetic part describes a diffusion process with diffusion constant $D=\frac{1}{2}$, and the potential part describes a weighting (linear in position space). This is referred to as the \textit{short time approximation}.
-
+ \textbf{Solution}: Introduce a \textit{trial energy} $E_T(\tau)$ instead of $E_0$ in the Green's function.
  
 \end{frame}
 
@@ -115,7 +165,7 @@
  \end{frame}
 
  \begin{frame}
-   Originally:
+   Originally $\Phi(\mathbf{r}, \tau) = \bra{\mathbf{r}}\OP{P}(\tau)\ket{\Psi_T}$ solves:
  \begin{equation*}
   \frac{\partial \Phi(\mathbf{r}, \tau)}{\partial\tau} = \left[\frac{1}{2}\nabla^2 - \left(\OP{V} - E_T\right)\right]\Phi(\mathbf{r}, \tau).
  \end{equation*}
@@ -123,21 +173,21 @@
  \pause
  
  \textit{Importance sampled}:
-  \begin{equation}
+  \begin{equation*}
   \frac{\partial f(\mathbf{r}, \tau)}{\partial\tau} = \left[\frac{1}{2}\nabla\cdot\left(\nabla - \mathbf{F}(\mathbf{r})\right) - (E_L(\mathbf{r}) - E_T)\right]f(\mathbf{r}, \tau),
- \end{equation}
+ \end{equation*}
  
  where
  
-\begin{equation}
+\begin{equation*}
   \mathbf{F}(\mathbf{r}) =  2\Psi_T(\mathbf{r})^{-1}\nabla \Psi_T(\mathbf{r})
-\end{equation}
+\end{equation*}
 
 is the \textit{quantum force} and 
 
-\begin{equation} 
+\begin{equation*} 
 E_L(\mathbf{r}) = \Psi_T(\mathbf{r})^{-1}\OP{H}\Psi_T(\mathbf{r})
-\end{equation}
+\end{equation*}
 
 is the \textit{local energy}. 
 
@@ -148,45 +198,47 @@ is the \textit{local energy}.
  
  \begin{align*}
   G_{\mathrm{Diff}}(\mathbf{r}', \mathbf{r}; \delta\tau) &\propto \exp\left(-\left|\mathbf{r}-\mathbf{r}' - D\delta\tau \mathbf{F}(\mathbf{r})\right|^2/4D\delta\tau\right), \\
-  G_{\mathrm{B}}(\mathbf{r}', \mathbf{r}; \delta\tau) &\propto \exp\left(-\left(\frac{1}{2}\left[E_L(\mathbf{r}) + E_L(\mathbf{r}')\right] - E_T\right)\delta\tau\right),
+  G_{\mathrm{W}}(\mathbf{r}', \mathbf{r}; \delta\tau) &\propto \exp\left(-\left(\frac{1}{2}\left[E_L(\mathbf{r}) + E_L(\mathbf{r}')\right] - E_T\right)\delta\tau\right),
  \end{align*}
 
- where $\mathrm{B}$ denotes \textit{branching}.
+ where $\mathrm{W}$ denotes \textit{weighting}.
+ \shift
+ 
+ $\Psi_T(\mathbf{r})$ is tailored to cancel singularities in $E_L(\mathbf{r})$. 
+ 
  
 \end{frame}
 
-\begin{frame}
- The local energy dependence in the branching Green's function implicitly takes care of the singularities in $\OP{V}$. 
- \shift
- 
- This is done by introducing the \textit{Jastrow factor} in $\Psi_T(\mathbf{r})$
- 
- \begin{equation}
-  J(\mathbf{r}) = \prod_{i > j}^N \exp\left(a_{ij} \frac{r_{ij}}{1 + \beta r_{ij}}\right),
- \end{equation}
- 
- where $r_{ij} = |\mathbf{r}_i - \mathbf{r}_j|$, $N$ is the number of particles, $\beta$ is a variational parameter, and $a_{ij}$ is a constant depending on the spin eigenvalues of particles $i$ and $j$.
- \shift
- 
- The Jastrow factor is tailored to cancel the singularities in the electron-electron Coulomb interaction as the relative distances decrease.
- 
-\end{frame}
+% \begin{frame}
+%  The local energy dependence in the branching Green's function implicitly takes care of the singularities in $\OP{V}$. 
+%  \shift
+%  
+%  This is done by introducing the \textit{Jastrow factor} in $\Psi_T(\mathbf{r})$
+%  
+%  \begin{equation}
+%   J(\mathbf{r}) = \prod_{i > j}^N \exp\left(a_{ij} \frac{r_{ij}}{1 + \beta r_{ij}}\right),
+%  \end{equation}
+%  
+%  where $r_{ij} = |\mathbf{r}_i - \mathbf{r}_j|$, $N$ is the number of particles, $\beta$ is a variational parameter, and $a_{ij}$ is a constant depending on the spin eigenvalues of particles $i$ and $j$.
+%  \shift
+%  
+%  The Jastrow factor is tailored to cancel the singularities in the electron-electron Coulomb interaction as the relative distances decrease.
+%  
+% \end{frame}
 
 
 \begin{frame}
 
  \frametitle{The Markov process}
 
- \textbf{Idea}: The process of projection is modelled by letting an ensemble of walkers span $f(\mathbf{r}, \tau)$. An iteration involves diffusing all the walkers and distributing new weights. 
- \shift
+%  \textbf{Idea}: The process of projection is modelled by letting an ensemble of walkers span $f(\mathbf{r}, \tau)$. An iteration involves diffusing all the walkers and distributing new weights. 
+%  \shift
  
  \textbf{Problem}: The distribution $f(\mathbf{r}, \tau) = \Phi(\mathbf{r}, \tau)\Psi_T(\mathbf{r})$ is not exclusively positive unless the nodes (zeros) of $\Psi_T(\mathbf{r})$ matches those of $\Phi(\mathbf{r}, \tau)$. 
  \shift
  
- \textbf{Solution}: By \emph{fixing} the nodes of $f(\mathbf{r}, \tau)$ to match those of $\Psi_T(\mathbf{r})$, the nodes of $\Phi(\mathbf{r}, \tau)$ will consequently match these as well. This is known as the \textit{fixed node approximation} (FNA).
- \shift
+ \textbf{Solution}: \emph{Fixing} the nodes of $f(\mathbf{r}, \tau)$ to match those of $\Psi_T(\mathbf{r})$ (the \textit{fixed node approximation}).
  
- \textbf{Consequence}: If the FNA is not redundant, $\Phi(\mathbf{r}, \tau)$ will never converge to the exact ground state. 
 \end{frame}
 
 \begin{frame}
@@ -202,22 +254,27 @@ is the \textit{local energy}.
 \begin{frame}
 \frametitle{Branching}
 
-\textbf{Idea}: The weights are modelled by spawning and killing walkers with a rate equal to $G_\mathrm{B}$. 
+\textbf{Idea}: The weights are modelled by spawning and killing walkers with a rate equal to $G_\mathrm{W}$. 
 \shift
 
-\textbf{Problem}: $G_\mathrm{B}$ is not necessarily an integer.
+\textbf{Problem}: $G_\mathrm{W}$ is not necessarily an integer.
 \shift
 
-\textbf{Solution}: Create $\mathrm{floor}(G_\mathrm{B})$ copies with a $G_\mathrm{B} - \mathrm{floor}(G_\mathrm{B})$ chance of creating an additional copy.
-\shift
+\textbf{Solution}: The walker branch $\mathrm{floor}(G_\mathrm{B})$ times with a chance of one additional copy.
 
-Or more compact: Create 
 
-\begin{equation}
-\overline{G}_\mathrm{B} = \mathrm{floor}(G_\mathrm{B} + a)
-\end{equation}
+\vspace{0.5cm}
+If zero branches, the walker is removed.
 
-copies, where $a \in [0,\,1)$ is a uniformly distributed random number. If the value is zero, the walker dies.
+% \shift
+% 
+% Or more compact: Create 
+% 
+% \begin{equation}
+% \overline{G}_\mathrm{B} = \mathrm{floor}(G_\mathrm{B} + a)
+% \end{equation}
+% 
+% copies, where $a \in [0,\,1)$ is a uniformly distributed random number. If the value is zero, the walker dies.
 
 \end{frame}
 
@@ -237,17 +294,19 @@ copies, where $a \in [0,\,1)$ is a uniformly distributed random number. If the v
 \begin{frame}
  \frametitle{Diffusion}
  
- The diffusion equation representing $G_\mathrm{Diff}$ is the so-called \textit{Fokker-Planck equation}. 
- \shift
+%  The diffusion equation representing $G_\mathrm{Diff}$ is the so-called \textit{Fokker-Planck equation}. 
+%  \shift
+%  
+%  Anisotropic diffusion process. The quantum force pushes the walkers into regions of higher probability. 
+%  \shift
+%  
+%  According to the Fokker-Planck formalism, 
+
+According to the introduced diffusion process, the new position $\mathbf{r}_{i+1}$ is calculated from the old one, $\mathbf{r}_i$, as follows
  
- Anisotropic diffusion process. The quantum force pushes the walkers into regions of higher probability. 
- \shift
- 
- According to the Fokker-Planck formalism, a new position $\mathbf{r}_{i+1}$ is calculated from the old one, $\mathbf{r}_i$, as follows
- 
- \begin{equation}
+ \begin{equation*}
   \mathbf{r}_{i+1} = \mathbf{r}_i + D\delta\tau\mathbf{F}(\mathbf{r}_i) + \mathbf{\xi}, 
- \end{equation}
+ \end{equation*}
 
 where $\mathbf{\xi}$ is a vector of normal distributed random numbers with variance $\sqrt{2D\delta\tau}$.
  
@@ -286,10 +345,13 @@ and
  \frametitle{Recap}
  
  \begin{itemize}
- \item The projection process is approximated by the diffusion of an ensemble of walkers with distributed weights.
- \pause \item Diffusion by the Fokker-Planck equation ensures efficient sampling by the use of the quantum force.
- \pause \item The Metropolis algorithm corrects the bias introduced by a finite step length. Ensures that the walkers follow $|\Psi_T(\mathbf{r})|^2$.
- \pause \item After each diffusion step, the walker is either killed or cloned based on the value of the branching Green's function. This ensures that the distribution of walkers follows $f(\mathbf{r}, \tau)$ and not $|\Psi_T(\mathbf{r})|^2$.
+ \item The distribution at any stage is given as the histogram of the walkers' configurations.
+ \pause \item The projection process involves diffusing the walkers and calculating weights.
+ \pause \item Efficient sampling by using the quantum force.
+ \pause \item Unbiased sampling by using the Metropolis algorithm.
+ \pause \item Transition from $|\Psi_T|^2 \to f(\mathbf{r}, \tau)$ by including the weights.
+%  \pause \item The Metropolis algorithm corrects the bias introduced by a finite step length. Ensures that the walkers follow $|\Psi_T(\mathbf{r})|^2$.
+%  \pause \item After each diffusion step, the walker is either killed or cloned based on the value of the branching Green's function. This ensures that the distribution of walkers follows $f(\mathbf{r}, \tau)$ and not $|\Psi_T(\mathbf{r})|^2$.
  \end{itemize}
 
 \end{frame}
@@ -298,18 +360,14 @@ and
 
 \begin{frame}
  \frametitle{Variational Monte-Carlo}
- Neglecting the branching term results in a method known as \textit{Variational Monte-Carlo} (VMC).
+ Neglecting the branching results in a method known as \textit{Variational Monte-Carlo} (VMC).
  \shift
  
  Corresponds to calculating $\bra{\Psi_T}\OP{H}\ket{\Psi_T}$ using a standard Monte-Carlo approach
  
- \begin{equation}
+ \begin{equation*}
   \bra{\Psi_T}\OP{H}\ket{\Psi_T} = \int_\mathbf{r} |\Psi_T(\mathbf{r})|^2 E_L(\mathbf{r})\mathrm{d}\mathbf{r} \simeq \frac{1}{N}\sum_{i=1}^N \frac{1}{\Psi_T(\mathbf{r_i})}\OP{H}\Psi_T(\mathbf{r}_i) 
- \end{equation}
-  \shift
- 
- Notice that using any other distribution than $|\Psi_T(\mathbf{r})|^2$ to sample the points $\mathbf{r}_i$ results in undefined samples of the local energy.
-
+ \end{equation*}
  
 \end{frame}
 
@@ -328,25 +386,46 @@ and
 \end{frame}
 
 \begin{frame}
- The \textit{variational principle} introduced in the previous slide opens up the possibility to introduce \textit{variational parameters} in $\Psi_T(\mathbf{r})$ whose values are found by minimizing the VMC energy in the parameter space.
- \shift
+ \frametitle{Limitations: VMC}
  
- Already have $\beta$ from the Jastrow factor. 
- \shift
- 
- The \textit{spatial} wave function is modelled as a single \textit{Slater determinant}, which can be split into two parts $|\mathbf{S(\mathbf{r})}^\uparrow|$ and $|\mathbf{S(\mathbf{r})}^\downarrow|$ corresponding to two spin levels due to the fact that the Hamiltonian is assumed to be \emph{spin independent}.
- \shift
- 
- Introducing the variational parameter $\alpha$ into the spatial wave function yields
- 
- 
- \begin{equation}
-  \Psi_T(\mathbf{r}; \alpha, \beta) = |\mathbf{S(\mathbf{r}; \alpha)}^\uparrow||\mathbf{S(\mathbf{r}; \alpha)}^\downarrow|J(\mathbf{r}; \beta)
- \end{equation}
-
- 
+ VMC is extremely robust, however, extremely dependent on a good ansatz for $\Psi_T(\mathbf{r})$.
  
 \end{frame}
+
+
+
+\begin{frame}
+ \frametitle{Limitations: VMC}
+ 
+ \begin{figure}
+  \begin{center}
+   \includegraphics[scale=0.35]{../graphics/WFComp.png}
+  \end{center}
+  \caption{Comparison of different trial wave functions for a two-dimensional 12-particle quantum dot with unit frequency.}
+ \end{figure}
+ 
+\end{frame}
+
+% \begin{frame}
+%  The \textit{variational principle} introduced in the previous slide opens up the possibility to introduce \textit{variational parameters} in $\Psi_T(\mathbf{r})$ whose values are found by minimizing the VMC energy in the parameter space.
+%  \shift
+%  
+%  Already have $\beta$ from the Jastrow factor. 
+%  \shift
+%  
+%  The \textit{spatial} wave function is modelled as a single \textit{Slater determinant}, which can be split into two parts $|\mathbf{S(\mathbf{r})}^\uparrow|$ and $|\mathbf{S(\mathbf{r})}^\downarrow|$ corresponding to two spin levels due to the fact that the Hamiltonian is assumed to be \emph{spin independent}.
+%  \shift
+%  
+%  Introducing the variational parameter $\alpha$ into the spatial wave function yields
+%  
+%  
+%  \begin{equation}
+%   \Psi_T(\mathbf{r}; \alpha, \beta) = |\mathbf{S(\mathbf{r}; \alpha)}^\uparrow||\mathbf{S(\mathbf{r}; \alpha)}^\downarrow|J(\mathbf{r}; \beta)
+%  \end{equation}
+% 
+%  
+%  
+% \end{frame}
 
 \begin{frame}
 \frametitle{Diffusion Monte-Carlo}
@@ -368,24 +447,7 @@ which upon convergence of the projection results in $\OP{H}\ket{\Phi(\tau)} = E_
 
 \end{frame}
 
-\begin{frame}
- \frametitle{Limitations: VMC}
- 
- VMC is extremely robust, however, extremely dependent on a good ansatz for $\Psi_T(\mathbf{r})$.
- 
-\end{frame}
 
-\begin{frame}
- \frametitle{Limitations: VMC}
- 
- \begin{figure}
-  \begin{center}
-   \includegraphics[scale=0.35]{../graphics/WFComp.png}
-  \end{center}
-  \caption{Comparison of different trial wave functions for a two-dimensional 12-particle quantum dot with unit frequency.}
- \end{figure}
- 
-\end{frame}
 
 
 \begin{frame}
@@ -394,13 +456,17 @@ which upon convergence of the projection results in $\OP{H}\ket{\Phi(\tau)} = E_
   As discussed previously: The fixed node approximation.
   \shift
   
-  \textbf{Problem}: The branching can get out of control for high \textit{variance} systems. 
+  The branching can get out of control for high \textit{variance} systems. 
   \shift
   
-  \textbf{Solution}: Can be countered by choosing a lower time step. 
+  Can be countered by choosing a lower time step. 
+  
+  \begin{equation}
+   G_W \sim \exp(\sigma(E)\delta\tau)
+  \end{equation}
   \shift
   
-  \textbf{Consequence}: Slower convergence. Breaking the requirement of \textit{ergodicity}.
+  Low $\delta\tau$ means slower convergence. Unable to span the whole space.
   
 \end{frame}
 
