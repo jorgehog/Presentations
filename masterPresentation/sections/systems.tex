@@ -1,4 +1,4 @@
-\subsection{Modelled systems}
+\section{Modelled systems}
 
 \begin{frame}
  \frametitle{The modelled systems}
@@ -17,6 +17,8 @@
   \end{itemize}
  \end{itemize}
 \end{frame}
+
+\subsection{Quantum dots}
 
 \begin{frame}
  \frametitle{Quantum dots}
@@ -99,14 +101,16 @@
 \end{figure}
 \end{frame}
 
+\subsection{Atomic systems}
+
 \begin{frame}
  \frametitle{Atomic systems}
  
 Atoms are modelled with a Coulomb interaction between the electrons and the nucleus 
  
- \begin{equation}
+ \begin{equation*}
  V_\mathrm{ext}(\mathbf{r}) = -\frac{Z}{r}. \label{eq:v0hydro}
-\end{equation}
+\end{equation*}
 \vspace{0.5cm}
  
 The nucleus is fixed at the origin (the \textit{Born-Oppenheimer Approximation}).
@@ -146,10 +150,10 @@ $Y_l^m(\theta, \phi)$: \textit{Spherical harmonics}.
  \shift
  \textbf{Solution}: Use the \textit{solid harmonics}
  
- \begin{align}
+ \begin{align*}
 S_l^m(r, \theta, \phi) &\propto r^l\left[Y_l^m(\theta, \phi) + (-1)^m Y_l^{-m}(\theta, \phi)\right] \\
  &\propto r^{l} P_l^{|m|}(\cos\theta) \begin{cases} \cos m\phi & m \ge 0 \\ \sin|m|\phi &  m < 0 \end{cases}.     
-\end{align}
+\end{align*}
 
  \end{frame}
  
