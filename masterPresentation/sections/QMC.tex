@@ -320,9 +320,9 @@ where $\mathbf{\xi}$ is a vector of normal distributed random numbers with varia
 
 \textbf{Solution}: The \textit{Metropolis algorithm} will correct this bias:  
 
-\begin{equation}
+\begin{equation*}
   A(i\,\rightarrow\,j) = \min\{R_G(i\,\rightarrow\,j)R_\psi(i\,\rightarrow\,j)^2, \,1\},
-\end{equation}
+\end{equation*}
 
 where $i\,\rightarrow\,j$ denotes a transition from state $i$ to state $j$, $A$ is the probability of accepting the transition, 
 
@@ -434,16 +434,16 @@ Including both diffusion and branching results in a method known as \textit{Diff
 
 The DMC energy corresponds to the following integral
 
-\begin{equation}
+\begin{equation*}
  E_{\mathrm{DMC}} = \frac{\int_\mathbf{r} f(\mathbf{r}, \tau) \frac{1}{\Psi_T(\mathbf{r})}\OP{H} \Psi_T(\mathbf{r})\mathrm{d}\mathbf{r}}{\int_\mathbf{r} f(\mathbf{r}, \tau)\mathrm{d}\mathbf{r}}  = \frac{\bra{\Phi(\tau)} \OP{H} \ket{\Psi_T}}{\braket{\Phi(\tau)}{\Psi_T}},
-\end{equation}
+\end{equation*}
 
 \pause
 which upon convergence of the projection results in $\OP{H}\ket{\Phi(\tau)} = E_0\ket{\Phi(\tau)}$. The energy becomes
 
-\begin{equation}
+\begin{equation*}
  E_{\mathrm{DMC}} = \frac{\bra{\Phi(\tau)}E_0\ket{\Psi_T}}{\braket{\Phi(\tau)}{\Psi_T}} = E_0.
-\end{equation}
+\end{equation*}
 
 \end{frame}
 
@@ -461,9 +461,9 @@ which upon convergence of the projection results in $\OP{H}\ket{\Phi(\tau)} = E_
   
   Can be countered by choosing a lower time step. 
   
-  \begin{equation}
+  \begin{equation*}
    G_W \sim \exp(\sigma(E)\delta\tau)
-  \end{equation}
+  \end{equation*}
   \shift
   
   Low $\delta\tau$ means slower convergence. Unable to span the whole space.
