@@ -23,8 +23,6 @@
 \titlepage
 \end{frame}
 
-\begin{frame}\frametitle{Table of contents}\tableofcontents
-\end{frame} 
 
 
 \section{Aims and limitations} 
@@ -108,7 +106,7 @@ Compromise to ensure efficiency and ``ideal scaling``
 
 \end{frame}
 
-\section{The Code: Transparency is win}
+\section{The Code}
 \subsection{Describing a system}
 
 \begin{frame}[containsverbatim]\frametitle{Start from the bottom up}
@@ -224,12 +222,12 @@ HaromonicOscillator::HarmonicOscillator{
     basis_functions[2] = new HarmonicOscillator3D_2(...);
     ...
 
-    dell_basis_functions[0][0] = new dell_HarmonicOscillator3D_0_x(...);
-    dell_basis_functions[1][0] = new dell_HarmonicOscillator3D_0_y(...);
-    dell_basis_functions[2][0] = new dell_HarmonicOscillator3D_0_z(...);
-    dell_basis_functions[0][1] = new dell_HarmonicOscillator3D_1_x(...);
-    dell_basis_functions[1][1] = new dell_HarmonicOscillator3D_1_y(...);
-    dell_basis_functions[2][1] = new dell_HarmonicOscillator3D_1_z(...);
+    del_basis_functions[0][0] = new del_HarmonicOscillator3D_0_x(...);
+    del_basis_functions[1][0] = new del_HarmonicOscillator3D_0_y(...);
+    del_basis_functions[2][0] = new del_HarmonicOscillator3D_0_z(...);
+    del_basis_functions[0][1] = new del_HarmonicOscillator3D_1_x(...);
+    del_basis_functions[1][1] = new del_HarmonicOscillator3D_1_y(...);
+    del_basis_functions[2][1] = new del_HarmonicOscillator3D_1_z(...);
     ...
 
     lapl_basis_functions[0] = new lapl_HarmonicOscillator3D_0(...);
@@ -314,8 +312,10 @@ Can be loaded into the QMC machinery as any other Orbital instance.
 \end{frame}
 
 
+\section{(di)Molecules}
+\subsection*{}
 
-\begin{frame}\frametitle{(di)Molecules}
+\begin{frame}
  \begin{equation*}
  \OP{H}_{\mathrm{Mol.}}(\mathbf{r}, \mathbf{R}) = \sum_{i=1}^N \left[-\frac{1}{2}\nabla_i^2 - \frac{Z}{|\mathbf{r}_i + \mathbf{R}/2|} - \frac{Z}{|\mathbf{r}_i - \mathbf{R}/2|}\right] + \frac{Z^2}{R} + \sum_{i<j} \frac{1}{r_{ij}}.
 \end{equation*}
@@ -531,9 +531,11 @@ $\mathrm{O_2}$ & 2.282 & &\qquad & -143.97(2)    & \qquad   & -148.53(2)   & \qq
 \end{frame}
 
 
+\section*{}
 \subsection*{}
 
 \begin{frame}
+\phantomsection
  \bibliographystyle{plain}
  \bibliography{bibtex}
 \end{frame}
