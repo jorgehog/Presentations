@@ -177,17 +177,19 @@ shadow
 %	PRESENTATION INFORMATION
 %----------------------------------------------------------------------------------------
 
-\newcommand*{\mytitle}{Coupling Molecular Dynamics\\ and Quantum Mechanics\\ \vspace{0.25cm} \scriptsize{A (hopefully) lightweight introduction to a not so lightweight topic.}} % Title
+\newcommand*{\mytitle}{Molecular Dynamics: The Quantum Coupling\\ \vspace{0.25cm} \scriptsize{A (hopefully) lightweight introduction to the world of multiscale modeling.}} % Title
 \newcommand*{\runninghead}{Coupling Molecular Dynamics and Quantum Mechanics} % Running head displayed on almost all slides
 \newcommand*{\myauthor}{J{\o}rgen H{\o}gberget} % Presenters name(s)
-\newcommand*{\mydate}{\today} % Presentation date
+\newcommand*{\mydate}{November 8, 2013} % Presentation date
 \newcommand*{\myuni}{University of Oslo --- Physics of Geological Processes} % University or department
 
 %----------------------------------------------------------------------------------------
 
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{multimedia}
+\usepackage{subfig}
 \renewcommand*{\vec}{\mathbf}
 
 
@@ -235,7 +237,7 @@ shadow
 %----------------------------------------------------------------------------------------
 
 \section{Recap of Molecular Dynamics}
-
+\subsection{Basics}
 \clearpage
 
 %------------------------------------------------
@@ -243,7 +245,7 @@ shadow
 %\subsection{Based on newtonian mechanics blah blah.. MOVIE!:D}
 
 \begin{itemize}
- \item Integrate Newton's equations for a dynamic ensemble of point particles.
+ \item Integrate Newton's equations for a dynamic set of point particles.
  \item Molecular interactions are described by potentials.
 \end{itemize}
 
@@ -262,13 +264,14 @@ shadow
 \clearpage
 
 %------------------------------------------------
-The force is expressed as the gradient of the potential
-
-\clearpage
-
-%------------------------------------------------
 
 \subsection{Why do we need quantum mechanics?}
+
+\mybox{0.8\textwidth}{
+\begin{itemize}
+ \item Dramatically increases the \underline{predictive power} of MD.
+\end{itemize}
+}
 
 \clearpage
 
@@ -277,53 +280,294 @@ The force is expressed as the gradient of the potential
 
 \section{Introducing Quantum Mechanics}
 
+\subsection{Difference from Newtonian Mechanics}
+
 \clearpage
 
 %------------------------------------------------
 
-\subsection{Difference from Statistical Mechanics}
+Imagine having a series of \textit{identical} experiments.
+
+\mybox{0.8\textwidth}{
+\begin{itemize}
+ \item \textbf{Classical scale:} Every measurement yields the same result $\mathbf{m}_{\mathrm{CL}}$.
+ \item \textbf{Quantum scale:}   Every measurement $\mathbf{m}_{\mathrm{QM}}$ can in theory be different, however, under the restriction that\\
+ $\langle \mathbf{m}_{\mathrm{QM}} \rangle = \mathbf{m}_{\mathrm{CL}}$
+\end{itemize}
+}
+
+\begin{center}
+\movie[]{\includegraphics[width=0.7\textwidth]{./movies/FOR_PRESS_00051.png}}{./movies/clVsQmDist.avi}
+\end{center}
+
+\clearpage
+%------------------------------------------------
+
+If you have obtained this distribution of measurements, that is, you know the \textit{wave function}, you may calculate any \textit{observable} quantity related to the system.
+
+\clearpage
+%------------------------------------------------
+
+In order to calculate the dynamics of a system we must ...
+
+\mybox{0.8\textwidth}{
+\begin{itemize}
+ \item \textbf{Classical scale:} Solve Newton's second law for a given force field. Goal is to obtain a trajectory in phase space. 
+ \item \textbf{Quantum scale:}   Solve Schr\"{o}dinger's equation for a given potential. Goal is to obtain the wave function.
+\end{itemize}
+}
+
+\clearpage
+%------------------------------------------------
+
+
+
+\subsection{Challenges}
+
 \clearpage
 
 %------------------------------------------------
 
-\subsection{Benefits and Problems}
-\cite{H_He_Exact}
+\subsubsection*{The electrons}
+
+\begin{itemize}
+\item  Not point particles as in classical theories.
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+
+
+\subsubsection*{The electrons}
+
+\begin{itemize}
+\item  Not point particles as in classical theories.
+\item  A wave in space with given physical properties such as e.g.~mass and charge.
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+
+
+\subsubsection*{The electrons}
+
+\begin{itemize}
+\item  Not point particles as in classical theories.
+\item  A wave in space with given physical properties such as e.g.~mass and charge...
+\item  ... which implies interference with other electrons...
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsubsection*{The electrons}
+
+\begin{itemize}
+\item  Not point particles as in classical theories.
+\item  A wave in space with given physical properties such as e.g.~mass and charge...
+\item  ... which implies interference with other electrons...
+\item  ... which in turn implies that the solutions are not separable into single particle solutions.
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+The system needs to be treated as one unified entity; the electrons are \textit{entangled}.\\
+\textit{Crucial} in order to describe chemical reactions and molecular structures.
+
+
+\clearpage
+
+%------------------------------------------------
+
+\subsubsection*{The Computations}
+
+\begin{itemize}
+\item All differential equations become coupled, the CPU-time vs. system size scaling is off the charts.
+\item Similar to Taylor polynomials, the more complex the system becomes, and thus the resulting wave function, the more basis elements we need to include to describe it well. Extreme scaling here as well.
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsubsection*{All in all}
+
+Due to entanglement, the quantum computations scale extremely bad with the number of electrons. However, the gain is that we are able to study chemical reactions and molecular structures \textit{ab-initio}.
+
+\clearpage
+
+%------------------------------------------------
+
+  \captionsetup[subfloat]{labelformat=empty}
+\begin{figure}
+ \begin{center}
+  \subfloat[$N=2$]{\includegraphics[scale=0.14]{graphics/OBD/dist_out_QDots2c1_3D.png}}
+  \subfloat[$N=12$]{\includegraphics[scale=0.14]{graphics/OBD/dist_out_QDots12c1_3D.png}}
+  \subfloat[$N=30$]{\includegraphics[scale=0.14]{graphics/OBD/dist_out_QDots30c1_3D.png}}\\
+  \subfloat[$N=6$]{\includegraphics[scale=0.14]{graphics/OBD/dist_out_QDots6c1_3D.png}} 
+  \subfloat[$N=20$]{\includegraphics[scale=0.14]{graphics/OBD/dist_out_QDots20c1_3D.png}} 
+  \subfloat[$N=42$]{\includegraphics[scale=0.14]{graphics/OBD/dist_out_QDots42c1_3D.png}} \\
+  \caption{\scriptsize{Densities for two-dimensional quantum dots.}}
+  \label{fig:OBD_DMC_QDOTS_w1} 
+ \end{center}
+\end{figure}
+\clearpage
+
+%------------------------------------------------
+
+When the electron density is lowered, we approach a limit where the quantum and classical solutions are reconciled. We \textit{un-entangle} the system.
+
+\clearpage
+
+%------------------------------------------------
+
+ \begin{figure}
+ \begin{center}
+  \subfloat{\includegraphics[scale=0.25]{dist_out_QDots6c001_3D.png}}
+  \subfloat{\includegraphics[scale=0.2]{wigner6.png}}
+  \label{fig:wigner20}
+  \caption{Density for a 6-particle two-dimensional quantum dot compared to the classical theoretical configuration taken from F. Bolton, U. R\"{o}ssler.  \textit{Superlattices and microstructures} \textbf{13}, 139 (1993).}
+ \end{center}
+\end{figure}
+
 \clearpage
 
 %------------------------------------------------
 
 \section{Parameterizing Potentials using Quantum Mechanics}
 
+
 \clearpage
 
 %------------------------------------------------
 
 \subsection{Connecting the scales}
+
+How do we connect a molecular dynamics scenario of particle interactions to the quantum scale?
+
 \clearpage
 
 %------------------------------------------------
+
+\begin{center}
+\includegraphics[width=0.55\textwidth]{moleculesColliding.pdf}
+\end{center}
+
+\clearpage
+
+%------------------------------------------------
+
+Let's freeze the dynamics as in the previous image and do some super advanced physics.
+\clearpage
+
+%------------------------------------------------
+
+What is potential energy?
+\clearpage
+
+%------------------------------------------------
+Well, it's what can be transferred into kinetic energy!
+\clearpage
+
+%------------------------------------------------
+So, any energy sources that are \textbf{not} part of the MD kinetic energy is MD potential energy.
+\clearpage
+
+%------------------------------------------------
+
+Since the electrons are not modeled in MD, kinetic energy of electrons count as potential energy in this case.
+\clearpage
+
+%------------------------------------------------
+
+In other words: It is the total energy in quantum mechanics which corresponds to the potential in molecular dynamics.
+\clearpage
+
+%------------------------------------------------
+
+Given a wave function for our system, e.g.~two molecules at a distance $r_{ij}$, the total quantum mechanical energy is obtained by calculating the expectation value of the \textit{Hamiltonian} $\mathbf{H}$
+
+\mybox{0.9\textwidth}{
+\begin{align}
+ E_\mathrm{QM}(r_{ij}) &= \langle \mathbf{H} \rangle_{\psi(r_{ij})} \\
+\mathbf{F}_{ij} &= -\nabla_{r_{ij}} E_\mathrm{QM}
+ \end{align}
+}
+
+\clearpage
+
+%------------------------------------------------
+
+
 \subsection{Practical calculations}
-\clearpage
 
+\subsubsection*{Two-body forces}
+
+Set up a model Hamiltonian for the scenario in the previous Figure:
+
+\begin{itemize}
+ \item Core-core Coulomb interaction.
+ \item Electron-core Coulomb interaction.
+ \item Electron-electron Coulomb interaction.
+\end{itemize}
+
+
+\clearpage
 %------------------------------------------------
-\subsection{Examples}
-\clearpage
 
+Benefits: One potential to rule them all.
+
+\clearpage
+%------------------------------------------------
+
+$E_\mathrm{QM}(r_{ij})$ can be calculated for given values of $r_{ij}$ ($\mathbf{R}$ in the figure). The below figure shows calculations for $\mathrm{H}_2$
+
+\begin{center}
+ \includegraphics[width=0.6\textwidth]{R_vs_E_hyd_pure}
+\end{center}
+
+
+\clearpage
+%------------------------------------------------
+
+Studying the same calculations applied to $\mathrm{Li}_2$ we see something interesting...
+
+\begin{center}
+ \includegraphics[width=0.6\textwidth]{R_vs_E_lit_pure}
+\end{center}
+
+\clearpage
+%------------------------------------------------
+
+Can this explain why di-litium isn't found in the universe?
+\clearpage
+%------------------------------------------------
+
+\subsubsection*{N-body forces}
+
+There is nothing which stands in the way for simulating as large of a system you want, however, keep in mind the terrible scaling.\\
+
+In addition, for studying e.g.~silica structures, one would need a periodic system. Given entanglement \textbf{periodicity is non-trivial}. \\
+
+One often settle with \textit{pseudo-periodicity} and approximative methods.
+
+\clearpage
 %------------------------------------------------
 
 %------------------------------------------------
 \subsection{State of the art}
-\clearpage
 
-%------------------------------------------------
-
-
-\thispagestyle{empty} % No slide header and footer
-
-\bibliographystyle{unsrt}
-\bibliography{qMD_PGP}
+Here I will discuss DFT, The nobel prize and so on. In addition I will mention some of the work done with e.g.~reaxff.
 
 \clearpage
+
 
 %------------------------------------------------
 
