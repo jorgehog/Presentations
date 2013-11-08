@@ -336,15 +336,6 @@ Imagine having a series of \textit{identical} experiments.
 \clearpage
 %------------------------------------------------
 
-If you have obtained this distribution of measurements, that is, you know the \textit{wave function}, you may calculate any \textit{observable} quantity related to the system.
-
-Using N2L corresponds to taking the expectation value of the quantum mechanical solution, which inevitably leads to loss of information.
-
-
-\clearpage
-%------------------------------------------------
-
-
 
 \subsection{Challenges}
 
@@ -543,8 +534,9 @@ within this geometry
 
 \mybox{0.9\textwidth}{
 \begin{align*}
- \mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &= E_\mathrm{QM}(r_{ij})\psi(\mathbf{r}_e,)\\
-\mathbf{F}_{ij} &= -\nabla_{r_{ij}} E_\mathrm{QM}(r_{ij}).
+ \mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &= E(r_{ij})\psi(\mathbf{r}_e,)\\
+  \mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &= V_{ij}\psi(\mathbf{r}_e,)\\
+\mathbf{F}_{ij} &= -\nabla_{r_{ij}} E(r_{ij}).
  \end{align*}
 }
 
@@ -575,9 +567,9 @@ Benefits: One potential to rule them all.
 Multiplying the time independent SE with the gradient on both sides reveals a new eigenvalue problem:
 
 \begin{align*}
- \mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &= E_\mathrm{QM}(r_{ij})\psi(\mathbf{r}_e),\\
+ \mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &= E(r_{ij})\psi(\mathbf{r}_e),\\
  & \\
-  -\nabla_{r_{ij}}\mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &=  -\nabla_{r_{ij}}E_\mathrm{QM}(r_{ij})\psi(\mathbf{r}_e),\\
+  -\nabla_{r_{ij}}\mathbf{H}(r_{ij})\psi(\mathbf{r}_e) &=  -\nabla_{r_{ij}}E(r_{ij})\psi(\mathbf{r}_e),\\
   & \\
   \left(\mathbf{-\nabla_{r_{ij}} H}\right) \psi(\mathbf{r}_e) &= \mathbf{F}_{ij} \psi(\mathbf{r}_e).
 \end{align*}
@@ -644,6 +636,7 @@ Can this explain why di-litium isn't found in the universe?
 
 \clearpage
 %------------------------------------------------
+
 
 Sophisticated methods exist for performing quantum mechanical computation of a large number of atoms, such as \textit{density functional theory} (DFT).\\
 
